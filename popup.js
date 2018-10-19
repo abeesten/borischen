@@ -1,5 +1,5 @@
 var tiers = []
-$.get('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://s3-us-west-1.amazonaws.com') + '/fftiers/out/text_TE.txt', function(response) {
+$.get('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://s3-us-west-1.amazonaws.com') + '/fftiers/out/text_DST.txt', function(response) {
   var reg = /(?<=\: )(.*?)(?=$)/gm,
       item;
 
@@ -9,6 +9,12 @@ $.get('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://s3-
 
 console.log(tiers)
 
+chrome.tabs.executeScript(null, {file: "content_script.js"});
+
+chrome.storage.local.get(["names"], function (results){
+    console.log(results[0]);
+});
+
 
 /*PLAN OF ATTACK FOR now
     Right now this puts a skill position into tiers.
@@ -16,7 +22,7 @@ console.log(tiers)
     TODO:
     Start with TE(
         Scrape names on my team off of Yahoo.
-        Compare names on yahoo to tier list 
+        Compare names on yahoo to tier list
         make html popup(probably table) that looks like:
             QB:
             Tier: Name
