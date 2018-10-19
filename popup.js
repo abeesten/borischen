@@ -1,18 +1,29 @@
-var tiers = []
-$.get('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://s3-us-west-1.amazonaws.com') + '/fftiers/out/text_DST.txt', function(response) {
+var tiers = new Map()
+$.get('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://s3-us-west-1.amazonaws.com') + '/fftiers/out/text_TE.txt', function(response) {
   var reg = /(?<=\: )(.*?)(?=$)/gm,
       item;
 
-  while (item = reg.exec(response['contents'].split(',')))
-      tiers.push(item[1].split(", "));
-});
+var tier = 1;
+while (item = reg.exec(response['contents'].split(','))){
+    //console.log(item[1]);
+    var fields = item[1].split(", ");
+    for (var i = 0; i < fields.length; i++){
+      tiers[fields[i]] = tier;
+    }
+  ++tier;
+};
 
-console.log(tiers)
 
 chrome.tabs.executeScript(null, {file: "content_script.js"});
 
-chrome.storage.local.get(["names"], function (results){
-    console.log(results[0]);
+    chrome.storage.local.get(['names'], function (results){
+        //console.log(results['names'].length)
+        for(var i = 0; i < results['names'].length; i++){
+            if (results['names'][i] in tiers){
+                console.log(results['names']] + ':'+ tiers[results['names'][i]])
+            }
+        }
+    });
 });
 
 
