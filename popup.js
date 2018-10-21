@@ -35,7 +35,9 @@ setTimeout(function(){
         for(var i = 0; i < results['names'].length; i++){
             //console.log(results['names'][i] + ':'+ tiers.get(results['names'][i]))
             if (tiers.has(results['names'][i])){
-                console.log(results['names'][i] + ':'+ tiers.get(results['names'][i]))
+                var str = results['names'][i] + ':'+ tiers.get(results['names'][i]);
+                console.log(str)
+                document.getElementById("QB").innerHTML = str;
             }
             else {
                 console.log(results['names'][i] + ':'+ 'Not ranked')
@@ -43,6 +45,7 @@ setTimeout(function(){
         }
     });
 }, 1000);
+
 
 
 /*PLAN OF ATTACK FOR now
