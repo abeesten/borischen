@@ -11,7 +11,7 @@ function getTiers(position, tiers){
                 var fields = item[1].split(", ");
             }
             for (var i = 0; i < fields.length; i++){
-              tiers.set(fields[i], tier);
+              tiers.set(fields[i], [tier, position]);
             }
           ++tier;
         };
@@ -33,11 +33,10 @@ chrome.tabs.executeScript(null, {file: "content_script.js"});
 setTimeout(function(){
     chrome.storage.local.get(['names'], function (results){
         for(var i = 0; i < results['names'].length; i++){
-            //console.log(results['names'][i] + ':'+ tiers.get(results['names'][i]))
             if (tiers.has(results['names'][i])){
-                var str = results['names'][i] + ':'+ tiers.get(results['names'][i]);
-                console.log(str)
-                document.getElementById("QB").innerHTML = str;
+                tier = tiers.get(results['names'][i]);
+                var str = '<p>' + results['names'][i] + ':'+ tier[0] + '</p>';
+                document.getElementById(tier[1]).innerHTML += str;
             }
             else {
                 console.log(results['names'][i] + ':'+ 'Not ranked')
