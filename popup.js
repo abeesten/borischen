@@ -26,6 +26,7 @@ function getTiers(position, tiers){
     });
 }
 
+
 var tiers = new Map();
 
 getTiers('QB', tiers);
@@ -34,7 +35,9 @@ getTiers('RB', tiers);
 getTiers('TE', tiers);
 getTiers('K', tiers);
 getTiers('DST', tiers);
-getTiers('FLX', tiers);
+setTimeout(function(){
+    getTiers('FLX', tiers);
+}, 500);
 
 
 chrome.tabs.executeScript(null, {file: "content_script.js"});
@@ -44,12 +47,12 @@ setTimeout(function(){
         for(var i = 0; i < results['names'].length; i++){
             if (tiers.has(results['names'][i])){
                 tier = tiers.get(results['names'][i]);
-                var str = '<p' + ' class=' + tier[0] + '>' + results['names'][i] + ': '+ tier[0] + '</p>';
+                var str = '<div' + ' class=tier_' + tier[0] + '><p>' + results['names'][i] + ': '+ tier[0] + '</p></div>';
                 document.getElementById(tier[1]).innerHTML += str;
                 if(tier.length == 3){
-                    var flx = '<p' + ' class=' + tier[2] + '>' + results['names'][i] + ': '+ tier[2] + '</p>';
+                    var flx = '<div' + ' class=tier_' + tier[2] + '><p>' + results['names'][i] + ': '+ tier[2] + '</p><div>';
                     flex.push(flx)
-                    document.getElementById('FLX').innerHTML += flx;
+
                 }
             }
             else {
@@ -58,6 +61,24 @@ setTimeout(function(){
         }
     });
 }, 2000);
+
+setTimeout(function(){
+    flex.sort(function(x, y){
+        if (Number(x.split(": ").pop().split("<")[0]) > Number(y.split(": ").pop().split("<")[0])){
+            return 1;
+        }
+        else {
+            return -1;
+        }
+        return 0;
+    })
+}, 2100);
+
+setTimeout(function(){
+    for(var i = 0; i < flex.length; i++){
+        document.getElementById('FLX').innerHTML += flex[i];
+    }
+}, 2200);
 
 
 
