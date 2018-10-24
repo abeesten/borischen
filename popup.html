@@ -28,36 +28,58 @@
 			.best, .clicked {
 				background-color: #00ff00;
 			}
-			.tier_1{
-				/*background: #E36E8D;*/
-				background: #E9B8C5;
+			.player{
 				border-radius: 20px;
 				border: .5px solid white;
+				margin-bottom: 5px;
+			}
+			.tier_1{
+				background: #E9B8C5;
 			}
 			.tier_2{
 				background: #D19B60;
-				border-radius: 20px;
-				border: .5px solid white;
 			}
 			.tier_3{
 				background: #ABA95C;
-				border-radius: 20px;
-				border: .5px solid white;
 			}
 			.tier_4{
 				background: #7ABC72;
-				border-radius: 20px;
-				border: .5px solid white;
 			}
 			.tier_5{
 				background: #A3D3C5;
-				border-radius: 20px;
-				border: .5px solid white;
 			}
 			.tier_6{
 				background: #38ADCB;
-				border-radius: 20px;
-				border: .5px solid white;
+			}
+			.tier_7{
+				background: #33A3E4;
+			}
+			.tier_8{
+				background: #CAB1E7;
+			}
+			.tier_9{
+				background: #E9B8C5;
+			}
+			.tier_10{
+				background: #D19B60;
+			}
+			.tier_11{
+				background: #ABA95C;
+			}
+			.tier_12{
+				background: #7ABC72;
+			}
+			.tier_13{
+				background: #A3D3C5;
+			}
+			.tier_14{
+				background: #38ADCB;
+			}
+			.tier_15{
+				background: #33A3E4;
+			}
+			.tier_16{
+				background: #CAB1E7;
 			}
 			p {
 				margin-left:10px;
@@ -65,6 +87,11 @@
 		</style>
 	</head>
 	<body>
+		<select id="mySelect" onchange="myFunction()">
+		  <option value="Standard">Standard
+		  <option value="Half">.5 PPR
+		  <option value="PPR">PPR
+		</select>
 		<h3>QB tiers</h3>
 		<div id="QB"></div>
 		<h3>WR tiers</h3>

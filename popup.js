@@ -12,9 +12,15 @@ function getTiers(position, tiers){
             }
             for (var i = 0; i < fields.length; i++){
               if (position=='FLX'){
-                 var arr = tiers.get(fields[i]);
-                 arr.push(tier);
-                 tiers.set(fields[i], arr);
+                 if (tiers.has(fields[i])){
+                     var arr = tiers.get(fields[i]);
+                     arr.push(tier);
+                     tiers.set(fields[i], arr);
+                 }
+                 else {
+                     var arr = [0, position, tier];
+                     tiers.set(fields[i], tier);
+                 }
               }
               else {
                  tiers.set(fields[i], [tier, position]);
@@ -47,10 +53,10 @@ setTimeout(function(){
         for(var i = 0; i < results['names'].length; i++){
             if (tiers.has(results['names'][i])){
                 tier = tiers.get(results['names'][i]);
-                var str = '<div' + ' class=tier_' + tier[0] + '><p>' + results['names'][i] + ': '+ tier[0] + '</p></div>';
+                var str = '<div' + ' class=\"player tier_' + tier[0] + '\"><p>' + results['names'][i] + ': '+ tier[0] + '</p></div>';
                 document.getElementById(tier[1]).innerHTML += str;
                 if(tier.length == 3){
-                    var flx = '<div' + ' class=tier_' + tier[2] + '><p>' + results['names'][i] + ': '+ tier[2] + '</p><div>';
+                    var flx = '<div' + ' class=\"player tier_' + tier[2] + '\"><p>' + results['names'][i] + ': '+ tier[2] + '</p><div>';
                     flex.push(flx)
 
                 }
